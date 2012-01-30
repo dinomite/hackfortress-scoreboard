@@ -43,9 +43,22 @@ DROP TABLE IF EXISTS `round`;
 CREATE TABLE `round` (
     `roundID` tinyint(1) unsigned NOT NULL auto_increment,
     `roundName` enum('First', 'Semi-final', 'Final') NOT NULL default 'First',
-    `red_team` tinyint(1) NOT NULL,
-    `blue_team` tinyint(1) NOT NULL,
+    `red_team` tinyint(1) unsigned NOT NULL,
+    `blue_team` tinyint(1) unsigned NOT NULL,
     PRIMARY KEY (`roundID`),
     FOREIGN KEY (`red_team`) REFERENCES `team` (`teamID`),
     FOREIGN KEY (`blue_team`) REFERENCES `team` (`teamID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `score`;
+CREATE TABLE `score` (
+    `scoreID` smallint(1) unsigned NOT NULL auto_increment,
+    `teamID` tinyint(1) unsigned NOT NULL,
+    `roundID` tinyint(1) unsigned NOT NULL,
+    `puzzleID` tinyint(1) unsigned NOT NULL,
+    PRIMARY KEY (`scoreID`),
+    UNIQUE KEY (`teamID`, `puzzleID`),
+    FOREIGN KEY (`teamID`) REFERENCES `team` (`teamID`),
+    FOREIGN KEY (`roundID`) REFERENCES `round` (`roundID`),
+    FOREIGN KEY (`puzzleID`) REFERENCES `puzzle` (`puzzleID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
