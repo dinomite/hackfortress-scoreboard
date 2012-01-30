@@ -20,7 +20,6 @@ CREATE TABLE `difficulty` (
     UNIQUE KEY (`name`, `points`),
     KEY (`difficultyID`, `name`, `points`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-INSERT INTO difficulty (name, points) VALUES ('easy', 30), ('medium', 70), ('hard', 120);
 
 DROP TABLE IF EXISTS `round_has_puzzle`;
 CREATE TABLE `round_has_puzzle` (
